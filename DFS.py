@@ -6,6 +6,23 @@ inicio = ""
 final = ""
 bench = False
 
+def reset_info():
+    global grafo
+    global mark
+    global performance_measure
+    global caminho
+    global inicio
+    global final
+    global bench
+
+    performance_measure = 0.0
+    caminho = []
+    inicio = ""
+    final = ""
+    bench = False
+    mark = 0
+    grafo = {}
+
 def DFS_visit(u, iteration):
     global mark
     global performance_measure
@@ -92,3 +109,4 @@ def run_dfs():
         print(f"Distância total: {mark}")
         print(f"Caminho final: {inicio} -> {final}")
         print(f"Medida de desempenho final: {performance_measure:.1f}")
+        reset_info()

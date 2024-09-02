@@ -10,6 +10,19 @@ vertices = []
  
 grafo = {}
 
+def reset_info():
+    global listaAberta 
+    global listaFechada
+    global dicHeuristica
+    global vertices
+    global grafo
+
+    listaAberta = []
+    listaFechada = []
+    dicHeuristica = {}
+    vertices = []
+    grafo = {}
+
 def exibir_fila(iteracao):
     print(f"Iteração {iteracao}:")
     fila_str = "Fila: "
@@ -169,7 +182,7 @@ def run_star():
         caminho = ' - '.join(resultado)
         print(f"Caminho: {caminho}")
         calcular_medida_desempenho(len(listaFechada))  # Medida de desempenho final
-
+        reset_info()
     return 0
 
 
