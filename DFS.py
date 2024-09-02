@@ -1,3 +1,5 @@
+import os
+
 grafo = {}
 mark = 0
 performance_measure = 0.0
@@ -5,6 +7,23 @@ caminho = []
 inicio = ""
 final = ""
 bench = False
+
+def reset_info():
+    global grafo
+    global mark
+    global performance_measure
+    global caminho
+    global inicio
+    global final
+    global bench
+
+    performance_measure = 0.0
+    caminho = []
+    inicio = ""
+    final = ""
+    bench = False
+    mark = 0
+    grafo = {}
 
 def DFS_visit(u, iteration):
     global mark
@@ -62,7 +81,16 @@ def data_input():
     global inicio
     global final
 
-    with open('input.txt', 'r') as arq:
+    arq_str = input('Digite o nome do arquivo de entrada\n')
+
+    while True:
+        if os.path.isfile(arq_str) is True:
+            break
+        else:
+            print('Arquivo não existe, digite novamente...')
+            arq_str = input('Digite o nome do arquivo de entrada\n')
+
+    with open(arq_str, 'r') as arq:
         # Lendo ponto inicial e final
         inicio = arq.readline().strip().replace("ponto_inicial(", "").replace(")", "")
         final = arq.readline().strip().replace("ponto_final(", "").replace(")", "")
@@ -92,3 +120,4 @@ def run_dfs():
         print(f"Distância total: {mark}")
         print(f"Caminho final: {inicio} -> {final}")
         print(f"Medida de desempenho final: {performance_measure:.1f}")
+        reset_info()

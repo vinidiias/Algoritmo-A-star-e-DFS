@@ -1,4 +1,4 @@
-import re
+import os
 
 listaAberta = []
 listaFechada = []
@@ -9,6 +9,19 @@ vertices = []
 
  
 grafo = {}
+
+def reset_info():
+    global listaAberta 
+    global listaFechada
+    global dicHeuristica
+    global vertices
+    global grafo
+
+    listaAberta = []
+    listaFechada = []
+    dicHeuristica = {}
+    vertices = []
+    grafo = {}
 
 def exibir_fila(iteracao):
     print(f"Iteração {iteracao}:")
@@ -119,7 +132,16 @@ def data_input():
 
     i = 0
     n = 0
-    with open('input.txt', 'r') as arq:
+    arq_str = input('Digite o nome do arquivo de entrada\n')
+
+    while True:
+        if os.path.isfile(arq_str) is True:
+            break
+        else:
+            print('Arquivo não existe, digite novamente...')
+            arq_str = input('Digite o nome do arquivo de entrada\n')
+
+    with open(arq_str, 'r') as arq:
         linha = arq.readline()
         while linha and linha.startswith('p'):
             linha = arq.readline()
@@ -137,7 +159,7 @@ def data_input():
         #global grafo
         #grafo = gf.Grafo(len(heuristica))
         
-    with open('input.txt', 'r') as arq:
+    with open(arq_str, 'r') as arq:
         inicio = arq.readline().strip().replace("ponto_inicial(", "").replace(")", "") #le a primeira linha (ponto inicial)
         final = arq.readline().strip().replace("ponto_final(", "").replace(")", "") #le a segunda linha (ponto final)
 
@@ -169,7 +191,7 @@ def run_star():
         caminho = ' - '.join(resultado)
         print(f"Caminho: {caminho}")
         calcular_medida_desempenho(len(listaFechada))  # Medida de desempenho final
-
+        reset_info()
     return 0
 
 
